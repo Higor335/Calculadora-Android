@@ -3,68 +3,126 @@ package com.example.calculadora;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.service.autofill.OnClickAction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvR,tvC;
     Button btZero, btUm, btDois, btTres, btQuatro, btCinco, btSeis, btSete, btOito, btNove;
     Button btSoma, btSubtracao, btMulti, btDivisao, btLimpar, btVirgula, btIgual;
+    String acumulador=" ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btZero = (Button) findViewById(R.id.btZero);
-        Button btUm = (Button) findViewById(R.id.btUm);
-        Button btDois = (Button) findViewById(R.id.btDois);
-        Button btTres = (Button) findViewById(R.id.btTres);
-        Button btQuatro = (Button) findViewById(R.id.btQuatro);
-        Button btCinco = (Button) findViewById(R.id.btCinco);
-        Button btSeis = (Button) findViewById(R.id.btSeis);
-        Button btSete = (Button) findViewById(R.id.btSete);
-        Button btOito = (Button) findViewById(R.id.btOito);
-        Button btNove = (Button) findViewById(R.id.btNove);
-        Button btSoma = (Button) findViewById(R.id.btSoma);
-        Button btSubtracao = (Button) findViewById(R.id.btSubracao);
-        Button btMulti = (Button) findViewById(R.id.btMulti);
-        Button btDivisao = (Button) findViewById(R.id.btDivisao);
-        Button btLimpar = (Button) findViewById(R.id.btLimpar);
-        Button btVirgula = (Button) findViewById(R.id.btVirgula);
-        Button btIgual = (Button) findViewById(R.id.btIgual);
+        tvC = findViewById(R.id.tvC);
+
+        btZero = (Button) findViewById(R.id.btZero);
+        btUm = (Button) findViewById(R.id.btUm);
+        btDois = (Button) findViewById(R.id.btDois);
+        btTres = (Button) findViewById(R.id.btTres);
+        btQuatro = (Button) findViewById(R.id.btQuatro);
+        btCinco = (Button) findViewById(R.id.btCinco);
+        btSeis = (Button) findViewById(R.id.btSeis);
+        btSete = (Button) findViewById(R.id.btSete);
+        btOito = (Button) findViewById(R.id.btOito);
+        btNove = (Button) findViewById(R.id.btNove);
+        btSoma = (Button) findViewById(R.id.btSoma);
+        btSubtracao = (Button) findViewById(R.id.btSubracao);
+        btMulti = (Button) findViewById(R.id.btMulti);
+        btDivisao = (Button) findViewById(R.id.btDivisao);
+        btLimpar = (Button) findViewById(R.id.btLimpar);
+        btVirgula = (Button) findViewById(R.id.btVirgula);
+        btIgual = (Button) findViewById(R.id.btIgual);
+
+        btZero.setOnClickListener(this);
+        btUm.setOnClickListener(this);
+        btDois.setOnClickListener(this);
+        btTres.setOnClickListener(this);
+        btQuatro.setOnClickListener(this);
+        btCinco.setOnClickListener(this);
+        btSeis.setOnClickListener(this);
+        btSete.setOnClickListener(this);
+        btOito.setOnClickListener(this);
+        btNove.setOnClickListener(this);
+        btVirgula.setOnClickListener(this);
+        btIgual.setOnClickListener(this);
+        btLimpar.setOnClickListener(this);
+        btSoma.setOnClickListener(this);
+        btSubtracao.setOnClickListener(this);
+        btMulti.setOnClickListener(this);
+        btDivisao.setOnClickListener(this);
+
+    }
+
+    void escreve(){
+        tvC.setText(acumulador);
+    }
+    void adiciona(int num){
+        if(acumulador == "0"){
+            acumulador= String.valueOf(num);
+        }else{
+            acumulador+=num;
+        }
     }
 
     @Override
     public void onClick(View view) {
+        String txt="";
         switch (view.getId()){
+            case R.id.btZero:
+                adiciona(0);
+                escreve();
+                break;
             case R.id.btUm:
-                tvR.setText("Botão1");
+                adiciona(1);
+                escreve();
                 break;
             case R.id.btDois:
-                tvR.setText("Botão2");
+                adiciona(2);
+                escreve();
                 break;
             case R.id.btTres:
-                tvR.setText("botao9");
+                adiciona(3);
+                escreve();
                 break;
             case R.id.btQuatro:
-                tvR.setText("Botão1");
+                adiciona(4);
+                escreve();
                 break;
             case R.id.btCinco:
-                tvR.setText("Botão2");
+                adiciona(5);
+                escreve();
                 break;
             case R.id.btSeis:
-                tvR.setText("botao9");
+                adiciona(6);
+                escreve();
                 break;
             case R.id.btSete:
-                tvR.setText("Botão1");
+                adiciona(7);
+                escreve();
                 break;
             case R.id.btOito:
-                tvR.setText("Botão2");
+                adiciona(8);
+                escreve();
                 break;
             case R.id.btNove:
-                tvR.setText("botao9");
+                adiciona(9);
+                escreve();
+                break;
+            case R.id.btVirgula:
+                acumulador+=",";
+                escreve();
+                break;
+            case R.id.btLimpar:
+                acumulador="0";
+                escreve();
                 break;
         }
     }

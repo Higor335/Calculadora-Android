@@ -23,7 +23,7 @@
             android:ellipsize="start"
             android:gravity="end"
             android:singleLine="true"
-            android:text="5+5"
+            android:text="@string/num0"
             android:textColor="@color/black"
             android:textSize="40sp" />
     </LinearLayout>
@@ -32,14 +32,12 @@
         android:id="@+id/tvR"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="10"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        android:gravity="end"
         android:layout_marginEnd="10dp"
         android:ellipsize="end"
+        android:gravity="end"
         android:maxLines="1"
-        />
+        android:textColor="@color/black"
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
