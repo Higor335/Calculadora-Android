@@ -17,7 +17,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Button btZero = (Button) findViewById(R.id.btZero);
+        Button btUm = (Button) findViewById(R.id.btUm);
+        Button btDois = (Button) findViewById(R.id.btDois);
+        Button btTres = (Button) findViewById(R.id.btTres);
+        Button btQuatro = (Button) findViewById(R.id.btQuatro);
+        Button btCinco = (Button) findViewById(R.id.btCinco);
+        Button btSeis = (Button) findViewById(R.id.btSeis);
+        Button btSete = (Button) findViewById(R.id.btSete);
+        Button btOito = (Button) findViewById(R.id.btOito);
+        Button btNove = (Button) findViewById(R.id.btNove);
+        Button btSoma = (Button) findViewById(R.id.btSoma);
+        Button btSubtracao = (Button) findViewById(R.id.btSubracao);
+        Button btMulti = (Button) findViewById(R.id.btMulti);
+        Button btDivisao = (Button) findViewById(R.id.btDivisao);
+        Button btLimpar = (Button) findViewById(R.id.btLimpar);
+        Button btVirgula = (Button) findViewById(R.id.btVirgula);
+        Button btIgual = (Button) findViewById(R.id.btIgual);
     }
 
     @Override

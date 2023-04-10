@@ -48,14 +48,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/bt_limpar"
+            android:id="@+id/btLimpar"
             style="@style/Operators_Button"
             android:layout_weight="3"
             android:text="@string/C"
             />
 
         <Button
-            android:id="@+id/bt_divisao"
+            android:id="@+id/btDivisao"
             style="@style/Operators_Button"
             android:text="@string/dividido"
             />
