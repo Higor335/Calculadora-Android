@@ -162,9 +162,9 @@
             android:text="@string/num0" />
 
         <Button
-            android:id="@+id/btVirgula"
+            android:id="@+id/btPonto"
             style="@style/Numbers_Button"
-            android:text="@string/virgula" />
+            android:text="@string/Ponto" />
 
         <Button
             android:id="@+id/btIgual"

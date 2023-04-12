@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Calculadora</string>
     <string name="num0">0</string>
-    <string name="virgula">,</string>
+    <string name="Ponto">.</string>
     <string name="C">C</string>
     <string name="igual">=</string>
     <string name="num1">1</string>

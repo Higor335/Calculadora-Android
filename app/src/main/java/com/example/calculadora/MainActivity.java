@@ -3,18 +3,15 @@ package com.example.calculadora;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.service.autofill.OnClickAction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView tvR,tvC;
     Button btZero, btUm, btDois, btTres, btQuatro, btCinco, btSeis, btSete, btOito, btNove;
-    Button btSoma, btSubtracao, btMulti, btDivisao, btLimpar, btVirgula, btIgual;
-    String acumulador=" ", acumulador2=" ";
+    Button btSoma, btSubtracao, btMulti, btDivisao, btLimpar, btPonto, btIgual;
+    String acumulador=" ", acumulador2="", calculo="";
     double numero=0;
 
     boolean cheque=false;
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btMulti = (Button) findViewById(R.id.btMulti);
         btDivisao = (Button) findViewById(R.id.btDivisao);
         btLimpar = (Button) findViewById(R.id.btLimpar);
-        btVirgula = (Button) findViewById(R.id.btVirgula);
+        btPonto = (Button) findViewById(R.id.btPonto);
         btIgual = (Button) findViewById(R.id.btIgual);
 
         btZero.setOnClickListener(this);
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btSete.setOnClickListener(this);
         btOito.setOnClickListener(this);
         btNove.setOnClickListener(this);
-        btVirgula.setOnClickListener(this);
+        btPonto.setOnClickListener(this);
         btIgual.setOnClickListener(this);
         btLimpar.setOnClickListener(this);
         btSoma.setOnClickListener(this);
@@ -66,14 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void escreve(){
-        tvC.setText(acumulador);
+        tvC.setText(acumulador+acumulador2);
     }
     void adiciona(int num){
         if (cheque == true){
-            acumulador2 = String.valueOf(num);
+            acumulador2 += String.valueOf(num);
+            tvC.setText(acumulador+calculo+num);
         }else if(acumulador == "0"){
             acumulador= String.valueOf(num);
-
         } else {
             acumulador+=num;
         }
@@ -130,49 +127,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 adiciona(9);
                 escreve();
                 break;
-            case R.id.btVirgula:
-                acumulador+=",";
+            case R.id.btPonto:
+                acumulador+=".";
                 escreve();
                 break;
             case R.id.btLimpar:
                 acumulador="0";
-                acumulador2="0";
+                acumulador2="";
                 numero=0;
                 tvR.setText(" ");
                 cheque = false;
                 escreve();
                 break;
             case R.id.btIgual:
-                    numero = numero + Double.parseDouble(acumulador2);
-                    tvR.setText(String.valueOf(numero));
-                break;
-            case R.id.btSoma:
-                if (verifica() == false){
-                    numero = Double.parseDouble(acumulador);
-                    acumulador+=" + ";
-                    escreve();
+                cheque=false;
+                switch (calculo){
+                    case "+":
+                        acumulador =""+ (numero + Double.parseDouble(acumulador2));
+                        break;
+                    case "-":
+                        acumulador =""+ (numero - Double.parseDouble(acumulador2));
+                        break;
+                    case "X":
+                        acumulador =""+ (numero * Double.parseDouble(acumulador2));
+                        break;
+                    case "/":
+                        acumulador =""+ (numero / Double.parseDouble(acumulador2));
+                        break;
                 }
+
+                tvR.setText(acumulador);
+                acumulador2="";
+                break;
+
+            case R.id.btSoma:
+                numero = Double.parseDouble(acumulador);
+                cheque=true;
+                acumulador+=" + ";
+                calculo="+";
+                escreve();
+
                 break;
             case R.id.btSubracao:
-                if (verifica() == false){
-                    numero = Double.parseDouble(acumulador);
-                    acumulador+=" - ";
-                    escreve();
-                }
+
+                numero = Double.parseDouble(acumulador);
+                cheque=true;
+                acumulador+=" - ";
+                calculo="-";
+                escreve();
                 break;
             case R.id.btDivisao:
-                if (verifica() == false){
-                    numero = Double.parseDouble(acumulador);
-                    acumulador+=" / ";
-                    escreve();
-                }
+                numero = Double.parseDouble(acumulador);
+                cheque=true;
+                acumulador+=" / ";
+                calculo="/";
+                escreve();
                 break;
             case R.id.btMulti:
-                if (verifica() == false){
-                    numero = Double.parseDouble(acumulador);
-                    acumulador+=" * ";
-                    escreve();
-                }
+
+                numero = Double.parseDouble(acumulador);
+                cheque=true;
+                acumulador+=" X ";
+                calculo="X";
+                escreve();
                 break;
         }
     }
