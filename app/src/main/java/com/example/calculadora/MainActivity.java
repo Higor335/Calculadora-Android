@@ -14,7 +14,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvR,tvC;
     Button btZero, btUm, btDois, btTres, btQuatro, btCinco, btSeis, btSete, btOito, btNove;
     Button btSoma, btSubtracao, btMulti, btDivisao, btLimpar, btVirgula, btIgual;
-    String acumulador=" ";
+    String acumulador=" ", acumulador2=" ";
+    double numero=0;
+
+    boolean cheque=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         tvC = findViewById(R.id.tvC);
+        tvR = findViewById(R.id.tvR);
 
         btZero = (Button) findViewById(R.id.btZero);
         btUm = (Button) findViewById(R.id.btUm);
@@ -65,11 +69,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvC.setText(acumulador);
     }
     void adiciona(int num){
-        if(acumulador == "0"){
+        if (cheque == true){
+            acumulador2 = String.valueOf(num);
+        }else if(acumulador == "0"){
             acumulador= String.valueOf(num);
-        }else{
+
+        } else {
             acumulador+=num;
         }
+    }
+
+    Boolean verifica(){
+        if (acumulador.contains("+") || acumulador.contains("-") || acumulador.contains("X") || acumulador.contains("/")){
+            cheque=true;
+        }
+        return cheque;
     }
 
     @Override
@@ -122,7 +136,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btLimpar:
                 acumulador="0";
+                acumulador2="0";
+                numero=0;
+                tvR.setText(" ");
+                cheque = false;
                 escreve();
+                break;
+            case R.id.btIgual:
+                    numero = numero + Double.parseDouble(acumulador2);
+                    tvR.setText(String.valueOf(numero));
+                break;
+            case R.id.btSoma:
+                if (verifica() == false){
+                    numero = Double.parseDouble(acumulador);
+                    acumulador+=" + ";
+                    escreve();
+                }
+                break;
+            case R.id.btSubracao:
+                if (verifica() == false){
+                    numero = Double.parseDouble(acumulador);
+                    acumulador+=" - ";
+                    escreve();
+                }
+                break;
+            case R.id.btDivisao:
+                if (verifica() == false){
+                    numero = Double.parseDouble(acumulador);
+                    acumulador+=" / ";
+                    escreve();
+                }
+                break;
+            case R.id.btMulti:
+                if (verifica() == false){
+                    numero = Double.parseDouble(acumulador);
+                    acumulador+=" * ";
+                    escreve();
+                }
                 break;
         }
     }
