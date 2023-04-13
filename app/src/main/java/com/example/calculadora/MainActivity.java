@@ -2,6 +2,7 @@ package com.example.calculadora;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +17,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     boolean cheque=false;
 
+    MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mp = MediaPlayer.create(MainActivity.this, R.raw.som);
 
         tvC = findViewById(R.id.tvC);
         tvR = findViewById(R.id.tvR);
@@ -76,15 +80,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    Boolean verifica(){
-        if (acumulador.contains("+") || acumulador.contains("-") || acumulador.contains("X") || acumulador.contains("/")){
-            cheque=true;
+    void continuarCalculo(){
+        if(acumulador2!=""){
+            calcular();
+            acumulador2=" ";
+            escreve();
         }
-        return cheque;
+    }
+
+
+    void calcular() {
+        switch (calculo) {
+            case "+":
+                acumulador = "" + (numero + Double.parseDouble(acumulador2));
+                break;
+            case "-":
+                acumulador = "" + (numero - Double.parseDouble(acumulador2));
+                break;
+            case "X":
+                acumulador = "" + (numero * Double.parseDouble(acumulador2));
+                break;
+            case "/":
+                acumulador = "" + (numero / Double.parseDouble(acumulador2));
+                break;
+        }
     }
 
     @Override
     public void onClick(View view) {
+        mp.start();
         String txt="";
         switch (view.getId()){
             case R.id.btZero:
@@ -128,7 +152,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 escreve();
                 break;
             case R.id.btPonto:
-                acumulador+=".";
+                if(numero!=0){
+                    acumulador2+=".";
+                }else {
+                    acumulador += ".";
+                }
                 escreve();
                 break;
             case R.id.btLimpar:
@@ -141,26 +169,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btIgual:
                 cheque=false;
-                switch (calculo){
-                    case "+":
-                        acumulador =""+ (numero + Double.parseDouble(acumulador2));
-                        break;
-                    case "-":
-                        acumulador =""+ (numero - Double.parseDouble(acumulador2));
-                        break;
-                    case "X":
-                        acumulador =""+ (numero * Double.parseDouble(acumulador2));
-                        break;
-                    case "/":
-                        acumulador =""+ (numero / Double.parseDouble(acumulador2));
-                        break;
-                }
-
+                calcular();
                 tvR.setText(acumulador);
                 acumulador2="";
                 break;
 
             case R.id.btSoma:
+                continuarCalculo();
+
                 numero = Double.parseDouble(acumulador);
                 cheque=true;
                 acumulador+=" + ";
@@ -169,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btSubracao:
+                continuarCalculo();
 
                 numero = Double.parseDouble(acumulador);
                 cheque=true;
@@ -177,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 escreve();
                 break;
             case R.id.btDivisao:
+                continuarCalculo();
+
                 numero = Double.parseDouble(acumulador);
                 cheque=true;
                 acumulador+=" / ";
@@ -184,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 escreve();
                 break;
             case R.id.btMulti:
+                continuarCalculo();
 
                 numero = Double.parseDouble(acumulador);
                 cheque=true;
